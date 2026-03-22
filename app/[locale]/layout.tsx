@@ -1,9 +1,40 @@
+import type { Metadata } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { Providers } from './providers';
 import '../globals.css';
+
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://lena-homestead.vercel.app';
+
+export const metadata: Metadata = {
+    metadataBase: new URL(appUrl),
+    title: {
+        default: 'Lena Homestead',
+        template: '%s | Lena Homestead',
+    },
+    description:
+        'Lena Homestead is a family-friendly learning and adventure space with stories, quests, and parent tools.',
+    applicationName: 'Lena Homestead',
+    openGraph: {
+        title: 'Lena Homestead',
+        description:
+            'A family-friendly learning and adventure space with stories, quests, and parent tools.',
+        url: appUrl,
+        siteName: 'Lena Homestead',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Lena Homestead',
+        description:
+            'A family-friendly learning and adventure space with stories, quests, and parent tools.',
+    },
+    icons: {
+        icon: '/favicon.ico',
+    },
+};
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
